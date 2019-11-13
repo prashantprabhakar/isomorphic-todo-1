@@ -2,10 +2,11 @@ import express from "express";
 import cors from "cors";
 import React from "react";
 import { renderToString } from "react-dom/server";
-// import { StaticRouter, matchPath } from "react-router-dom";
+// need StaticRouter for server and browser router for client
+import { StaticRouter, matchPath } from "react-router-dom";
 // import serialize from "serialize-javascript";
 // import routes from "../shared/routes";
-// import App from "../shared/App";
+import App from "../shared/App";
 // import sourceMapSupport from "source-map-support";
 import Todo from "../shared/todo/Todo"
 import "isomorphic-fetch";
@@ -111,7 +112,15 @@ app.get("*", async(req, res) => {
   let resp = await fetch("http://localhost:3000/api/todos")
   let initialData = await resp.json()
   console.log("rendered from server")
-  const markup = renderToString(<Todo initialData={initialData} />)
+  const conext = {initialData}  
+  const markup = renderToString(
+    // static router does not automatically get the URL like browserRouer
+    // so we need pass it manually
+    // staticRouter also accepts conext param: this object is passed to rendered component as staticContext
+    <StaticRouter location={req.url} context={conext}>
+      <App/>
+    </StaticRouter>
+  )
 
   return res.send(`
     <html>

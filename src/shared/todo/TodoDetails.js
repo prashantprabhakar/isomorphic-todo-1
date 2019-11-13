@@ -3,14 +3,16 @@ import React from "react"
 class TodoDetail extends React.Component {
 
     render() {
-        let {todo} = this.props
+        let todo = {_id: "ajajka"}
         return (
             <div>
                 <table>
-                    <tr>
-                        <td> Id</td>
-                        <td> {todo._id}</td>
-                    </tr>
+                    <tbody>
+                        <tr>
+                            <td> Id</td>
+                            <td> {todo._id}</td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         )

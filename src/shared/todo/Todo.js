@@ -7,6 +7,7 @@ import "../App.css";
 
 class Todo extends React.Component {
 
+
     constructor(props) {
         super(props)
         let initialData 
@@ -23,7 +24,7 @@ class Todo extends React.Component {
             delete window.__initialData__
         } else {
             console.log("I am on server ", +new Date())
-            initialData = props.initialData
+            initialData = props.staticContext.initialData
         }
         this.state = {
             todos: initialData,

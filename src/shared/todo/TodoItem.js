@@ -1,5 +1,4 @@
 import React from "react"
-import TodoDetail from "./TodoDetails"
 
 class TodoItem extends React.Component {
 
@@ -10,7 +9,6 @@ class TodoItem extends React.Component {
 
     showDetail() {
         console.log("need to show detail")
-        //return (<TodoDetail todo={this.props.todo} />)
     }
 
 
