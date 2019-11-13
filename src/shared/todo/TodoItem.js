@@ -23,7 +23,7 @@ class TodoItem extends React.Component {
                 <li> 
                     {title} 
                     <button className="btn-del" onClick={() => handleDelete(_id)}> Del </button>
-                    <Link to="/detail">
+                    <Link to={`/detail/${_id}`}>
                         <button> View </button>
                     </Link>
                 </li> 

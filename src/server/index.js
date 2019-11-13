@@ -120,7 +120,6 @@ app.get("*", async(req, res) => {
   // It is assumed that each component will implement static method (getInitialData) for initial data required
   const currentRoute = routes.find(route => matchPath(req.url, route))
   const initialData = currentRoute.component.getInitialData && await currentRoute.component.getInitialData()
-  console.log({initialData})
   let context = {initialData}  
   const markup = renderToString(
     // static router does not automatically get the URL like browserRouer
