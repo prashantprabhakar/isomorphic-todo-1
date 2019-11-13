@@ -1,15 +1,18 @@
 import React from "react"
+import { Link } from "react-router-dom";
+
 
 class TodoItem extends React.Component {
 
     constructor(props){
         super(props)
-        this.showDetail = this.showDetail.bind(this)
+        // this.showDetail = this.showDetail.bind(this)
     }
 
-    showDetail() {
-        console.log("need to show detail")
-    }
+    // showDetail() {
+    //     console.log("need to show detail")
+    //     this.props.history.push("/detail")
+    // }
 
 
     render() {
@@ -20,7 +23,9 @@ class TodoItem extends React.Component {
                 <li> 
                     {title} 
                     <button className="btn-del" onClick={() => handleDelete(_id)}> Del </button>
-                    <button onClick={() => this.showDetail()}> View </button>
+                    <Link to="/detail">
+                        <button> View </button>
+                    </Link>
                 </li> 
             </div>
         )

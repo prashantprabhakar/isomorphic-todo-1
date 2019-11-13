@@ -112,12 +112,12 @@ app.get("*", async(req, res) => {
   let resp = await fetch("http://localhost:3000/api/todos")
   let initialData = await resp.json()
   console.log("rendered from server")
-  const conext = {initialData}  
+  const context = {initialData}  
   const markup = renderToString(
     // static router does not automatically get the URL like browserRouer
     // so we need pass it manually
-    // staticRouter also accepts conext param: this object is passed to rendered component as staticContext
-    <StaticRouter location={req.url} context={conext}>
+    // staticRouter also accepts context param: this object is passed to rendered component as staticContext
+    <StaticRouter location={req.url} context={context}>
       <App/>
     </StaticRouter>
   )
