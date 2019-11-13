@@ -3,3 +3,4 @@ server.js
 server.js.map
 public/bundle.js
 public/bundle.js.map
+public/css/main.css.map
