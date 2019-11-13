@@ -9,6 +9,7 @@ import { renderToString } from "react-dom/server";
 // import sourceMapSupport from "source-map-support";
 import Todo from "../shared/todo/Todo"
 import "isomorphic-fetch";
+import bodyParser from "body-parser"
 
 let initData = [
   {
@@ -92,23 +93,32 @@ let initData = [
 const app = express();
 
 app.use(cors());
+app.use(bodyParser.json())
 app.use(express.static("public"));
 
 app.get("/api/todos", (req, res) => {
   res.json(initData);
 });
 
+app.post("/api/del-todo", (req, res) => {
+  let {_id} = req.body
+  let filteredData = initData.filter(todo => todo._id !== _id)
+  initData = filteredData
+  return res.json({updatedTodo: filteredData})
+})
+
 app.get("*", async(req, res) => {
   let resp = await fetch("http://localhost:3000/api/todos")
   let initialData = await resp.json()
-   
-  const markup = renderToString(<Todo initialData={initialData}/>)
+  console.log("rendered from server")
+  const markup = renderToString(<Todo initialData={initialData} />)
 
   return res.send(`
     <html>
       <head>
         <title> Tes </title>
         <script src="bundle.js" defer></script>
+        <script>window.__initialData__=${JSON.stringify(initialData)}</script>
       </head>
       <body>
         <div id="root"> ${markup}</div>

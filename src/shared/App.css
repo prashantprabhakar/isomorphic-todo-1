@@ -15,3 +15,8 @@ img {
 p {
   margin: 12px 0;
 }
+
+.btn-del {
+  margin: 10px;
+  background-color: #73bbbb;
+}

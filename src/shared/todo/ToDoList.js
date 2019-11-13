@@ -8,7 +8,7 @@ class TodoList extends React.Component {
         return (
             <div className="todo-list">
                 {
-                  todos && todos.length &&  todos.map(todo => <TodoItem todo={todo} handleDelete={handleDelete}/>)
+                  todos && todos.length &&  todos.map(todo => <TodoItem key={todo._id} todo={todo} handleDelete={(_id) => handleDelete(_id)}/>)
                 }
                 
             </div>

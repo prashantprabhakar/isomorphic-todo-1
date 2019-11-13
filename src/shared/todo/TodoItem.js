@@ -1,18 +1,18 @@
 import React from "react"
-import Todo from "./Todo"
+import TodoDetail from "./TodoDetails"
 
 class TodoItem extends React.Component {
 
     constructor(props){
         super(props)
-        this.handleDelete = this.handleDel.bind(this)
+        this.showDetail = this.showDetail.bind(this)
     }
 
-    handleDel = (id) => {
-       // e.preventDefault()
-        console.log("called")
-        //this.props.handleDelete(id)
+    showDetail() {
+        console.log("need to show detail")
+        //return (<TodoDetail todo={this.props.todo} />)
     }
+
 
     render() {
         let {title, _id} = this.props.todo
@@ -21,7 +21,8 @@ class TodoItem extends React.Component {
             <div>
                 <li> 
                     {title} 
-                    <button onClick={this.handleDel}> Del </button>
+                    <button className="btn-del" onClick={() => handleDelete(_id)}> Del </button>
+                    <button onClick={() => this.showDetail()}> View </button>
                 </li> 
             </div>
         )
