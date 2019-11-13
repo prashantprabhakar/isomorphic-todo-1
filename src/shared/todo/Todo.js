@@ -34,6 +34,12 @@ class Todo extends React.Component {
         this.handleDelete = this.handleDelete.bind(this)
     }
 
+    static async getInitialData() {
+        let resp = await fetch("http://localhost:3000/api/todos")
+        let initialData = await resp.json()
+        return initialData
+    }
+
     async handleDelete(_id){
         let resp = await fetch("http://localhost:3000/api/del-todo",{
             method: 'POST',

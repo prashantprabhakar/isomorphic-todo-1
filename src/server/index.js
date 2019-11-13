@@ -5,7 +5,7 @@ import { renderToString } from "react-dom/server";
 // need StaticRouter for server and browser router for client
 import { StaticRouter, matchPath } from "react-router-dom";
 // import serialize from "serialize-javascript";
-// import routes from "../shared/routes";
+import routes from "../shared/routes";
 import App from "../shared/App";
 // import sourceMapSupport from "source-map-support";
 import Todo from "../shared/todo/Todo"
@@ -108,11 +108,20 @@ app.post("/api/del-todo", (req, res) => {
   return res.json({updatedTodo: filteredData})
 })
 
+app.get("/api/todo-detail/:_id", (req, res) => {
+  let {_id} = req.params
+  let matchedTodo = initData.filter(todo => todo._id == _id)
+  return res.json({todo: matchedTodo[0]})
+})
+
 app.get("*", async(req, res) => {
-  let resp = await fetch("http://localhost:3000/api/todos")
-  let initialData = await resp.json()
-  console.log("rendered from server")
-  const context = {initialData}  
+  
+  // instead of fetching data for Todo component, we'll find data for component associated with given route
+  // It is assumed that each component will implement static method (getInitialData) for initial data required
+  const currentRoute = routes.find(route => matchPath(req.url, route))
+  const initialData = currentRoute.component.getInitialData && await currentRoute.component.getInitialData()
+  console.log({initialData})
+  let context = {initialData}  
   const markup = renderToString(
     // static router does not automatically get the URL like browserRouer
     // so we need pass it manually
