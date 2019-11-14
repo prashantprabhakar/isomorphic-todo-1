@@ -6,10 +6,8 @@ class TodoDetail extends React.Component {
         super(props)
         let initialData
         if(__isBrowser__) {
-            console.log("in browser")
             initialData = window.__initialData__
         } else {
-            console.log("in server")
             initialData =  props.staticContext.initialData
         }
         this.state = {todo: initialData}
@@ -24,7 +22,7 @@ class TodoDetail extends React.Component {
 
     static async getInitialData(id) {
         // hardcoded -- need to pass this dynamically
-        id = id || "5dcb8251cf530d4db579cec1"
+        //id = id || "5dcb8251cf530d4db579cec1"
         let resp = await fetch(`http://localhost:3000/api/todo-detail/${id}`)
         let initialData = await resp.json()
         return initialData.todo

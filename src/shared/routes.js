@@ -9,7 +9,8 @@ const routes = [
   },
   {
       path: "/detail/:id",
-      component: TodoDetail
+      component: TodoDetail,
+      fetchParams : (path='') => path.split('/').pop() 
   }
 ];
 

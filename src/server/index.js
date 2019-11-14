@@ -119,7 +119,8 @@ app.get("*", async(req, res) => {
   // instead of fetching data for Todo component, we'll find data for component associated with given route
   // It is assumed that each component will implement static method (getInitialData) for initial data required
   const currentRoute = routes.find(route => matchPath(req.url, route))
-  const initialData = currentRoute.component.getInitialData && await currentRoute.component.getInitialData()
+  let params = currentRoute.fetchParams && currentRoute.fetchParams(req.url)
+  const initialData = currentRoute.component.getInitialData && await currentRoute.component.getInitialData(params)
   let context = {initialData}  
   const markup = renderToString(
     // static router does not automatically get the URL like browserRouer
